@@ -16,7 +16,6 @@ $PAGE->set_url($url);
 $html = '';
 
 if (is_siteadmin($USER->id)) {
-
     // Load libraries.
     require_once('relatorio_form.php');
 
