@@ -24,9 +24,19 @@ require_once($CFG->libdir . '/formslib.php');
 class xereta_local_selection_form extends moodleform {
 
     public function definition() {
+        global $DB;
         $mform = & $this->_form;
 
-        $mform->addElement('html', html_writer::tag('p', get_string('form_text', 'local_xereta')));
+        $mform->addElement('html', html_writer::tag('h2', get_string('title', 'local_xereta')));
+
+        $mform->addElement('html', html_writer::tag('p', get_string('formtext', 'local_xereta')));
+
+        $allusers = $DB->get_records('user');
+        $options = array();
+        foreach ($allusers as $user) {
+                $options[$user->id] = $user->firstname;
+        }
+        $mform->addElement('select', 'userid', get_string('nameusers', 'local_xereta'), $options);
 
         $mform->addElement('date_time_selector', 'mintime', get_string('mintime', 'local_xereta'));
         $mform->addHelpButton('mintime', 'mintime', 'block_dedication');
