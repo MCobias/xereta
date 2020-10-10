@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Params.
  */
-class local_xereta_manager {
+class local_relatorio_manager {
     protected $course;
     protected $mintime;
     protected $maxtime;
@@ -39,7 +39,7 @@ class local_xereta_manager {
             'mintime' => $this->mintime,
             'maxtime' => $this->maxtime
         );
-        $logs = local_xereta_utils::get_events_select($where, $params);
+        $logs = local_relatorio_utils::get_events_select($where, $params);
         // Return user sessions with details.
         $rows = array();
         if ($logs) {
@@ -54,10 +54,8 @@ class local_xereta_manager {
 /**
  * Utils functions.
  */
-class local_xereta_utils {
-
+class local_relatorio_utils {
     public static $logstores = array('logstore_standard', 'logstore_legacy');
-
     /**
      * Return formatted events from logstores.
      * @param string $selectwhere
@@ -107,7 +105,7 @@ class local_xereta_utils {
      * @return string
      */
     public static function format_ips($ips) {
-        return implode(', ', array_map('local_xereta_utils::link_ip', $ips));
+        return implode(', ', array_map('local_relatorio_utils::link_ip', $ips));
     }
 
     /**

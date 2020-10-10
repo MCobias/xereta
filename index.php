@@ -6,22 +6,22 @@ global $DB, $PAGE, $OUTPUT, $USER;
 
 require_login();
 
-require_once('xereta_lib.php');
+require_once('relatorio_lib.php');
 
 $context = context_system::instance();
 $PAGE->set_context($context);
 
-$url = new moodle_url('/local/xereta/index.php');
+$url = new moodle_url('/local/relatorio/index.php');
 $PAGE->set_url($url);
 $html = '';
 
 if (is_siteadmin($USER->id)) {
 
     // Load libraries.
-    require_once('xerata_form.php');
+    require_once('relatorio_form.php');
 
     // Load calculate params from form, request or set default values.
-    $mform = new xereta_local_selection_form($url, null, 'get');
+    $mform = new relatorio_local_selection_form($url, null, 'get');
 
     if ($mform->is_submitted()) {
         // Params from form post.
@@ -50,14 +50,14 @@ if (is_siteadmin($USER->id)) {
         $view = new stdClass();
         $view->header = array();
 
-        $tablestyles = local_xereta_utils::get_table_styles();
+        $tablestyles = local_relatorio_utils::get_table_styles();
         $view->table = new html_table();
         $view->table->attributes = array('class' => $tablestyles['table_class']);
 
         $user = $DB->get_record('user', array('id' => $userid), '*', MUST_EXIST);
         $course = $DB->get_record("course", array("id" => $course->id), '*', MUST_EXIST);
 
-        $dm = new local_xereta_manager($course, $mintime, $maxtime);
+        $dm = new local_relatorio_manager($course, $mintime, $maxtime);
 
         // Table formatting & total count.
         $rows = $dm->get_user_dedication($user);
@@ -65,7 +65,7 @@ if (is_siteadmin($USER->id)) {
         foreach ($rows as $index => $row) {
             $rows[$index] = array(
                 userdate($row->start_date),
-                local_xereta_utils::format_ips($row->ips)
+                local_relatorio_utils::format_ips($row->ips)
             );
         }
 
@@ -73,7 +73,7 @@ if (is_siteadmin($USER->id)) {
         $rows = array_unique($rows);
         $rows = array_map('json_decode', $rows);
 
-        $view->table->head = array(get_string('sessionstart', 'local_xereta'), 'IP');
+        $view->table->head = array(get_string('sessionstart', 'local_relatorio'), 'IP');
         $view->table->data = $rows;
 
         // Format table headers if they exists.
@@ -91,5 +91,4 @@ if (is_siteadmin($USER->id)) {
     // END PAGE.
     echo $OUTPUT->box_end();
 }
-
 echo $OUTPUT->footer();
