@@ -30,7 +30,7 @@ require_course_login($course);
 $context = context_block::instance($instanceid);
 require_capability('block/dedication:use', $context);
 
-require_once('dedication_lib.php');
+require_once('xereta_lib.php');
 
 // Optional params from request or default values.
 $action = optional_param('action', 'all', PARAM_ALPHANUM);

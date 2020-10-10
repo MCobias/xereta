@@ -26,7 +26,7 @@ define('BLOCK_DEDICATION_DEFAULT_REGEN_TIME', 60 * 15);
 /**
  * Generate dedication reports based in passed params.
  */
-class block_dedication_manager {
+class local_xereta_manager {
 
     protected $course;
     protected $mintime;
@@ -249,7 +249,7 @@ class block_dedication_manager {
 /**
  * Utils functions used by block dedication.
  */
-class block_dedication_utils {
+class local_xereta_utils {
 
     public static $logstores = array('logstore_standard', 'logstore_legacy');
 
